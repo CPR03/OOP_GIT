@@ -11,7 +11,7 @@ public class LogIn_GUI extends JDialog {
     private JButton buttonOK;
     private JButton buttonCancel;
     private JTextField txtUserLog;
-    private JPasswordField txtpass;
+    private JPasswordField txtPass;
     private JLabel logInPic;
     private JLabel labelLogo;
     private JButton btnSignUp;
@@ -19,33 +19,23 @@ public class LogIn_GUI extends JDialog {
 
 
     public LogIn_GUI() {
+
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
-
-
-
-
+        
         btnSignUp.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Image imageLogo = new ImageIcon("Images/logo.png").getImage();
-                SignIn_GUI sign = new SignIn_GUI();
-                sign.pack();
-                sign.setTitle("SoulSpace | Sign up.");
-                sign.setIconImage(sign.imageLogo);
-                sign.setResizable(false);
-                sign.setBounds(600,200,600,350);
-                sign.setVisible(true);
-                //not working
-                LogIn_GUI log = new LogIn_GUI();
-                log.setVisible(false);
+
+                onSignUp();
+
             }
         });
+
+
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
                 onOK();
-
             }
         });
 
@@ -89,27 +79,70 @@ public class LogIn_GUI extends JDialog {
 
     }
 
+    private void onSignUp() {
+
+        setVisible(false);//hide login
+
+        // Create and show the sign-up dialog
+        SignUp_GUI sign = new SignUp_GUI();
+        sign.pack();
+        sign.setTitle("SoulSpace | Sign up.");
+        sign.setIconImage(sign.imageLogo);
+        sign.setResizable(false);
+        sign.setBounds(600,200,600,380);
+        sign.setVisible(true);
+    }
+
     private void onOK() {
 
+        try {
 
-
-        try{
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/apartment", "root","root");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/apartment", "root", "root");
             Statement state = con.createStatement();
-            ResultSet result = state.executeQuery("Select userName from apartment.users where userName = " + txtUserLog.getText());
+            ResultSet result = state.executeQuery("SELECT * FROM apartment.users");
 
-            while (result.next()){
-                if(result.equals("test")){
-                    dispose();
-                }
-                else{
-                    JOptionPane.showMessageDialog(null,"User not FOund","Error",JOptionPane.WARNING_MESSAGE);
+            int flag = 0; //tell if user OK
+
+            while (result.next() && flag == 0) {
+
+                String userNameFromDatabase = result.getString("userName");
+                String userPasswordFromDatabase = result.getString("userPassword");
+
+                if (userNameFromDatabase.equals(txtUserLog.getText())) {
+
+                    //if wrong password
+                    if (!userPasswordFromDatabase.equals(txtPass.getText())){
+                        JOptionPane.showMessageDialog(null, "Wrong Password!", "Error", JOptionPane.WARNING_MESSAGE);
+                    }
+
+                    //if password OK Open Dashboard
+                    else {
+
+                        setVisible(false); //hide login
+
+                        Dashboard_GUI dialog = new Dashboard_GUI();
+                        dialog.pack();
+                        dialog.setBounds(300, 100, 1300, 950);
+                        dialog.setResizable(false);
+                        dialog.setTitle("SoulSpace | Dashboard.");
+                        dialog.setIconImage(dialog.imageLogo);
+
+                        dialog.setVisible(true);
+
+                    }
+
+                    flag = 1;
+                    break;
+
                 }
             }
 
+            if (flag == 0) {
+                JOptionPane.showMessageDialog(null, "User not Found", "Error", JOptionPane.WARNING_MESSAGE);
+            }
 
-        }
-        catch(Exception exc){
+        } catch (Exception exc) {
+
             exc.printStackTrace();
         }
 
@@ -117,11 +150,29 @@ public class LogIn_GUI extends JDialog {
     }
 
     private void onCancel() {
+
         System.exit(0);
     }
 
 
+    public static void main(String[] args) {
+
+        LogIn_GUI();
+
+    }
 
 
+    //for calling LogIn_GUI
+    static void LogIn_GUI() {
+
+        LogIn_GUI log = new LogIn_GUI();
+        log.pack();
+        log.setTitle("SoulSpace | Login.");
+        log.setIconImage(log.imageLogo);
+        log.setResizable(false);
+        log.setBounds(600,200,600,380);
+
+        log.setVisible(true);
+    }
 
 }

@@ -167,6 +167,7 @@ public class Dashboard_GUI extends JDialog {
         req.setVisible(true);
 
     }
+
     private void onOK() {
         pane.setVisible(false);
         test.setVisible(true);
@@ -180,23 +181,6 @@ public class Dashboard_GUI extends JDialog {
 
     public static void main(String[] args) {
 
-        LogIn_GUI log = new LogIn_GUI();
-        log.pack();
-        log.setTitle("SoulSpace | Login.");
-        log.setIconImage(log.imageLogo);
-        log.setResizable(false);
-        log.setBounds(600,200,600,380);
-
-        log.setVisible(true);
-        Dashboard_GUI dialog = new Dashboard_GUI();
-        dialog.pack();
-        dialog.setBounds(300,100,1300,950);
-        dialog.setResizable(false);
-        dialog.setTitle("SoulSpace | Dashboard.");
-        dialog.setIconImage(dialog.imageLogo);
-
-        dialog.setVisible(true);
-        System.exit(0);
     }
 
 

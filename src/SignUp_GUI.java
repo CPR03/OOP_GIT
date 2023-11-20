@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class SignIn_GUI extends JDialog {
+public class SignUp_GUI extends JDialog {
     public Image imageLogo;
     private JPanel contentPane;
     private JButton buttonOK;
@@ -11,10 +11,11 @@ public class SignIn_GUI extends JDialog {
     private JPasswordField passwordPasswordField;
     private JLabel logInPic;
     private JLabel labelLogo;
+    private JButton btnLogIn;
     private JButton button1;
 
 
-    public SignIn_GUI() {
+    public SignUp_GUI() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -24,7 +25,15 @@ public class SignIn_GUI extends JDialog {
             public void actionPerformed(ActionEvent e) {
 
                 onOK();
-                dispose();
+
+            }
+        });
+
+        btnLogIn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                onBack();
+
             }
         });
 
@@ -68,6 +77,19 @@ public class SignIn_GUI extends JDialog {
 
     private void onOK() {
 
+        setVisible(false);
+
+        //PAAYOS AKO NITO DAT MAKAPAG LAGAY NA NG DATA SA DATABASE
+
+        LogIn_GUI.LogIn_GUI();
+
+
+    }
+
+    private void onBack(){
+        setVisible(false);
+
+        LogIn_GUI.LogIn_GUI();
     }
 
     private void onCancel() {
