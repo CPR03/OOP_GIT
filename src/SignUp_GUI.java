@@ -96,7 +96,7 @@ public class SignUp_GUI extends JDialog {
 
             while (result.next()) {
                 String userNameFromDatabase = result.getString("userName");
-                int userIdFromDatabase= result.getInt("user_id");
+
 
                 if (userNameFromDatabase.equals(txtUserLog.getText().toLowerCase())) {
                     JOptionPane.showMessageDialog(null,"Username already exist");
