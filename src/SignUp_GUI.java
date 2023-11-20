@@ -1,6 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class SignUp_GUI extends JDialog {
     public Image imageLogo;
@@ -8,7 +12,7 @@ public class SignUp_GUI extends JDialog {
     private JButton buttonOK;
     private JButton buttonCancel;
     private JTextField txtUserLog;
-    private JPasswordField passwordPasswordField;
+    private JPasswordField passfield;
     private JLabel logInPic;
     private JLabel labelLogo;
     private JButton btnLogIn;
@@ -77,9 +81,53 @@ public class SignUp_GUI extends JDialog {
 
     private void onOK() {
 
-        setVisible(false);
 
-        //PAAYOS AKO NITO DAT MAKAPAG LAGAY NA NG DATA SA DATABASE
+
+        try {
+
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/apartment", "root", "root");
+            Statement state = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+            ResultSet result = state.executeQuery("SELECT * FROM apartment.users");
+
+
+
+
+
+            while (result.next()) {
+                String userNameFromDatabase = result.getString("userName");
+                int userIdFromDatabase= result.getInt("user_id");
+
+                if (userNameFromDatabase.equals(txtUserLog.getText().toLowerCase())) {
+                    JOptionPane.showMessageDialog(null,"Username already exist");
+
+                }
+                else{
+                    setVisible(false);
+                    String usernameInput =txtUserLog.getText();
+                    String passText = new String(passfield.getPassword());
+
+                    //Inserting row to the last row of the table
+                    result.last();
+                    int id=result.getInt("user_id")+1;
+                    result.moveToInsertRow();
+                    result.updateInt("user_id",id);
+                    result.updateString("userName",usernameInput.toLowerCase());
+                    result.updateString("userPassword",passText.toLowerCase());
+                    result.insertRow();
+                    result.beforeFirst();
+                    JOptionPane.showMessageDialog(null,"Account successfully Created");
+                    LogIn_GUI.LogIn_GUI();//make the pointer back to the top
+
+                }
+            }
+
+
+
+        } catch (Exception exc) {
+
+            exc.printStackTrace();
+        }
 
         LogIn_GUI.LogIn_GUI();
 
