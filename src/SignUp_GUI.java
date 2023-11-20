@@ -82,7 +82,6 @@ public class SignUp_GUI extends JDialog {
     private void onOK() {
 
 
-
         try {
 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/apartment", "root", "root");
@@ -90,50 +89,49 @@ public class SignUp_GUI extends JDialog {
 
             ResultSet result = state.executeQuery("SELECT * FROM apartment.users");
 
-
-
-
+            boolean usernameExists = false;
 
             while (result.next()) {
-                String userNameFromDatabase = result.getString("userName");
 
+                String userNameFromDatabase = result.getString("userName").toLowerCase();
 
                 if (userNameFromDatabase.equals(txtUserLog.getText().toLowerCase())) {
-                    JOptionPane.showMessageDialog(null,"Username already exist");
-
+                    JOptionPane.showMessageDialog(null, "Username already exists");
+                    usernameExists = true;
+                    break;  // exit the loop as soon as a matching username is found
                 }
-                else{
-                    setVisible(false);
-                    String usernameInput =txtUserLog.getText();
-                    String passText = new String(passfield.getPassword());
 
-                    //Inserting row to the last row of the table
-                    result.last();
-                    int id=result.getInt("user_id")+1;
-                    result.moveToInsertRow();
-                    result.updateInt("user_id",id);
-                    result.updateString("userName",usernameInput.toLowerCase());
-                    result.updateString("userPassword",passText.toLowerCase());
-                    result.insertRow();
-                    result.beforeFirst();
-                    JOptionPane.showMessageDialog(null,"Account successfully Created");
-                    LogIn_GUI.LogIn_GUI();//make the pointer back to the top
-
-                }
             }
 
+            if (!usernameExists) {
 
+                setVisible(false);
+                String usernameInput = txtUserLog.getText();
+                String passText = new String(passfield.getPassword());
+
+                // Inserting row to the last row of the table
+                result.last();
+                int id = result.getInt("user_id") + 1; //get current id and ADD 1
+                result.moveToInsertRow();
+                result.updateInt("user_id", id); //add the newly created ID
+                result.updateString("userName", usernameInput.toLowerCase()); //add username
+                result.updateString("userPassword", passText.toLowerCase()); //add password
+                result.insertRow();
+                result.beforeFirst();
+                JOptionPane.showMessageDialog(null, "Account successfully created.");
+                LogIn_GUI.LogIn_GUI(); // Go back to Login
+
+            }
 
         } catch (Exception exc) {
-
             exc.printStackTrace();
         }
-
-        LogIn_GUI.LogIn_GUI();
 
 
     }
 
+
+    //Go back to Login if back button is pressed
     private void onBack(){
         setVisible(false);
 

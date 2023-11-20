@@ -131,7 +131,7 @@ public class LogIn_GUI extends JDialog {
             }
 
             if (flag == 0) {
-                JOptionPane.showMessageDialog(null, "User not Found", "Error", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "User not found or exists.", "Error", JOptionPane.WARNING_MESSAGE);
             }
 
         } catch (Exception exc) {
