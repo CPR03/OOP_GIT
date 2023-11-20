@@ -174,13 +174,25 @@ public class Dashboard_GUI extends JDialog {
     }
 
     private void onCancel() {
-        // add your code here if necessary
         dispose();
+        LogIn_GUI.LogIn_GUI(); //Go back to login if user exit
     }
     Image imageLogo = new ImageIcon("Images/logo.png").getImage();
 
     public static void main(String[] args) {
+        Dashboard_GUI.Dashboard_GUI();
+    }
 
+    static void Dashboard_GUI() {
+
+        Dashboard_GUI dialog = new Dashboard_GUI();
+        dialog.pack();
+        dialog.setBounds(300, 100, 1300, 950);
+        dialog.setResizable(false);
+        dialog.setTitle("SoulSpace | Dashboard.");
+        dialog.setIconImage(dialog.imageLogo);
+
+        dialog.setVisible(true);
     }
 
 

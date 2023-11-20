@@ -17,7 +17,6 @@ public class LogIn_GUI extends JDialog {
     private JButton btnSignUp;
     private JButton button1;
 
-
     public LogIn_GUI() {
 
         setContentPane(contentPane);
@@ -120,14 +119,8 @@ public class LogIn_GUI extends JDialog {
 
                         setVisible(false); //hide login
 
-                        Dashboard_GUI dialog = new Dashboard_GUI();
-                        dialog.pack();
-                        dialog.setBounds(300, 100, 1300, 950);
-                        dialog.setResizable(false);
-                        dialog.setTitle("SoulSpace | Dashboard.");
-                        dialog.setIconImage(dialog.imageLogo);
-
-                        dialog.setVisible(true);
+                        //Run Dashboard
+                        Dashboard_GUI.Dashboard_GUI();
 
                     }
 
@@ -146,14 +139,12 @@ public class LogIn_GUI extends JDialog {
             exc.printStackTrace();
         }
 
-
     }
 
     private void onCancel() {
 
         System.exit(0);
     }
-
 
     public static void main(String[] args) {
 
