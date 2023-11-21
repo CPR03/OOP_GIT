@@ -54,7 +54,7 @@ public class Selected_Apr_GUI extends JDialog {
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
-        poster.setIcon(new ImageIcon(new ImageIcon("Images/Apartments/Apartments_1sample.png").getImage().getScaledInstance(500, 300, Image.SCALE_SMOOTH)));
+        poster.setIcon(new ImageIcon(new ImageIcon("Images/Apartments/Apartments_1.png").getImage().getScaledInstance(500, 300, Image.SCALE_SMOOTH)));
         poster.setHorizontalTextPosition(SwingConstants.CENTER);
 
         details.setText("""
