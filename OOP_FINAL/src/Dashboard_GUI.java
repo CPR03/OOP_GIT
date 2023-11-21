@@ -44,7 +44,7 @@ public class Dashboard_GUI extends JDialog {
 
         pane.getVerticalScrollBar().setUnitIncrement(16); //set scroll speed
 
-        /*for (int i = 1; i <= 18; i++) {
+        /*for (int i = 1; i <= 12; i++) {
 
             JLabel label = new JLabel("House" + i, SwingConstants.CENTER);
 

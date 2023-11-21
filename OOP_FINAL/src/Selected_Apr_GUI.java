@@ -9,6 +9,11 @@ public class Selected_Apr_GUI extends JDialog {
     private JPanel panel;
     private JTextArea details;
     private JButton poster;
+    private JTabbedPane tabbedPane1;
+    private JButton poster2;
+    private JButton poster3;
+    private JButton poster4;
+    private JButton poster5;
     private JButton button1;
 
 
@@ -49,8 +54,9 @@ public class Selected_Apr_GUI extends JDialog {
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
-        poster.setIcon(new ImageIcon(new ImageIcon("Images/sample.png").getImage().getScaledInstance(500, 300, Image.SCALE_SMOOTH)));
+        poster.setIcon(new ImageIcon(new ImageIcon("Images/Apartments/Apartments_1sample.png").getImage().getScaledInstance(500, 300, Image.SCALE_SMOOTH)));
         poster.setHorizontalTextPosition(SwingConstants.CENTER);
+
         details.setText("""
                 \s
                 House name: Hakim's Crib\s
@@ -59,6 +65,7 @@ public class Selected_Apr_GUI extends JDialog {
                 Description: A room with tv, sofa, and picture frames\s
                 \s""");
 
+
         buttonOK.setIcon(new ImageIcon(new ImageIcon("Images/button_red.png").getImage().getScaledInstance(150, 30, Image.SCALE_SMOOTH)));
         buttonOK.setHorizontalTextPosition(SwingConstants.CENTER);
 
@@ -66,7 +73,9 @@ public class Selected_Apr_GUI extends JDialog {
         buttonCancel.setHorizontalTextPosition(SwingConstants.CENTER);
 
     }
+
     private void onDetails() {
+
         details.setText("""
                 \s
                 Owner: Master Hakim
